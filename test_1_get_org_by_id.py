@@ -17,12 +17,13 @@ def logging(ll, text_log):
 
 def range_curl (start, stop):
     for id in range(start, stop):
-        url = example_url + str(id)
+        #url = example_url + str(id)
+        url = 'https://yandex.ru/maps-reviews-widget/' + str(id) + '?comments'
         logging(0, "Try curl: " + url)
         page = requests.get(url)
         print(str(id) + " : " + str(page.status_code))
         soup = BeautifulSoup(page.content, 'html.parser')
-        with open(dir_html + str(id) + '.html', 'wb+') as f:
+        with open(dir_html + str(id) + '.html', 'w+') as f:
             f.write(soup.prettify())
             f.close()
 
