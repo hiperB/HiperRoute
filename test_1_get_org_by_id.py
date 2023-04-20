@@ -22,7 +22,7 @@ def range_curl (start, stop):
         page = requests.get(url)
         print(str(id) + " : " + str(page.status_code))
         soup = BeautifulSoup(page.content, 'html.parser')
-        with open(dir_html + id + '.html', 'wb+') as f:
+        with open(dir_html + str(id) + '.html', 'wb+') as f:
             f.write(soup.prettify())
             f.close()
 
