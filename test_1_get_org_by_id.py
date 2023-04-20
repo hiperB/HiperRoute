@@ -1,4 +1,6 @@
+#from datetime import datetime
 from datetime import datetime
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -11,11 +13,11 @@ dir_html = '/opt/tmp/'
 
 def logging(ll, text_log):
     if log_level > ll:
-        lf.write(datetime.datetime.now().strftime("%c") + ' | '+ text_log +' \n')
+        lf.write(datetime.now().strftime("%c") + ' | '+ text_log +' \n')
 
 def range_curl (start, stop):
     for id in range(start, stop):
-        url = example_url + id
+        url = example_url + str(id)
         logging(0, "Try curl: " + url)
         page = requests.get(url)
         print(id + " : " + page.status_code)
