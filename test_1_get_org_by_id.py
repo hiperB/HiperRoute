@@ -20,10 +20,9 @@ browser=webdriver.Firefox()
 
 def range_curl (start, stop):
     for id in range(start, stop):
-        #url = example_url + str(id)
-        browser = webdriver.Firefox()
 
-        url = 'https://yandex.ru/maps-reviews-widget/' + str(id) + '?comments'
+        #url = 'https://yandex.ru/maps-reviews-widget/' + str(id) + '?comments'
+        url = example_url + str(id)
         logging(0, "Try curl: " + url)
         #page = requests.get(url)
         browser.get(url)
@@ -36,7 +35,7 @@ def range_curl (start, stop):
             f.write(soup.prettify())
             f.close()
 
-        browser.close()
+
 
 
 lf = open(dir_logs+'/'+log_file, 'at')
@@ -45,9 +44,12 @@ lf = open(dir_logs+'/'+log_file, 'at')
 logging(0, "/-------------------------------------")
 logging(0, "Started scripts")
 
+browser = webdriver.Firefox()
+
 range_curl(1, 10000)
 range_curl(100000000, 100010000)
 range_curl(100000000000, 100000010000)
 
 logging(0, "Finished")
 lf.close()
+browser.close()
