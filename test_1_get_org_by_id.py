@@ -1,6 +1,7 @@
 #from datetime import datetime
 from datetime import datetime
-
+from selenium import webdriver
+import time
 import requests
 from bs4 import BeautifulSoup
 
@@ -15,17 +16,28 @@ def logging(ll, text_log):
     if log_level > ll:
         lf.write(datetime.now().strftime("%c") + ' | '+ text_log +' \n')
 
+browser=webdriver.Firefox()
+
 def range_curl (start, stop):
     for id in range(start, stop):
         #url = example_url + str(id)
+        browser = webdriver.Firefox()
+
         url = 'https://yandex.ru/maps-reviews-widget/' + str(id) + '?comments'
         logging(0, "Try curl: " + url)
-        page = requests.get(url)
-        print(str(id) + " : " + str(page.status_code))
-        soup = BeautifulSoup(page.content, 'html.parser')
+        #page = requests.get(url)
+        browser.get(url)
+        html = browser.page_source
+        time.sleep(2)
+        #print(html)
+        print(str(id))
+        soup = BeautifulSoup(html, 'html.parser')
         with open(dir_html + str(id) + '.html', 'w+') as f:
             f.write(soup.prettify())
             f.close()
+
+        browser.close()
+
 
 lf = open(dir_logs+'/'+log_file, 'at')
 
